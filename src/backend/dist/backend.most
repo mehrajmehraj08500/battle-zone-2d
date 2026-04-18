@@ -1,0 +1,117 @@
+// Version: 1.0.0
+type ArmorTier__737199526 = {#Heavy; #Light; #Medium};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type GamePhase__93692518 = {#GameOver; #InGame; #Lobby};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type KillFeedEntry__408996755 =
+  {
+    killerId : PlayerId__934676742;
+    killerName : Text;
+    timestamp : Int;
+    victimId : PlayerId__934676742;
+    victimName : Text;
+    weapon : WeaponType__140356860
+  };
+type LeaderboardEntry__684075585 =
+  {var gamesPlayed : Nat; var kills : Nat; playerName : Text; var wins : Nat};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type LootId__395897698 = LootId__629643025;
+type LootId__629643025 = Nat;
+type LootType__839908343 = {#Armor; #Health; #Weapon};
+type Loot__385442515 =
+  {
+    amount : Nat;
+    armorTier : ArmorTier__737199526;
+    var claimed : Bool;
+    id : LootId__395897698;
+    lootType : LootType__839908343;
+    weaponType : WeaponType__140356860;
+    var x : Float;
+    var y : Float
+  };
+type MatchResult__447891962 =
+  {
+    kills : Nat;
+    matchId : SessionId__262993129;
+    placement : Nat;
+    playerName : Text;
+    survivalTime : Int
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type PlayerId__52807076 = Nat;
+type PlayerId__934676742 = PlayerId__52807076;
+type Player__422088627 =
+  {
+    var alive : Bool;
+    var ammo : Nat;
+    var angle : Float;
+    var armor : Nat;
+    var health : Nat;
+    id : PlayerId__934676742;
+    isBot : Bool;
+    var kills : Nat;
+    name : Text;
+    var weapon : WeaponType__140356860;
+    var x : Float;
+    var y : Float
+  };
+type SafeZone__991283640 =
+  {
+    var centerX : Float;
+    var centerY : Float;
+    var damagePerTick : Nat;
+    var nextShrinkTime : Int;
+    var phase : Nat;
+    var radius : Float
+  };
+type SessionId__1052913375 = Nat;
+type SessionId__218261172 = SessionId__1052913375;
+type SessionId__262993129 = SessionId__1052913375;
+type Session__468206110 =
+  {
+    id : SessionId__218261172;
+    killFeed : List__415060402<KillFeedEntry__408996755>;
+    loots : List__415060402<Loot__385442515>;
+    matchResults : List__415060402<MatchResult__447891962>;
+    var matchTime : Int;
+    var nextLootId : LootId__395897698;
+    var nextPlayerId : PlayerId__934676742;
+    var phase : GamePhase__93692518;
+    players : List__415060402<Player__422088627>;
+    safeZone : SafeZone__991283640;
+    var tickCount : Nat;
+    var winner : ?Text
+  };
+type WeaponType__140356860 = {#Pistol; #Rifle; #Shotgun; #Sniper};
+actor {
+  stable leaderboard :
+    {
+      var root : Node__46230540<Text, LeaderboardEntry__684075585>;
+      var size : Nat__490723111
+    };
+  stable matchHistory :
+    {
+      var root :
+        Node__46230540<SessionId__262993129,
+                        List__415060402<MatchResult__447891962>>;
+      var size : Nat__490723111
+    };
+  stable var nextSessionId : Nat;
+  stable sessions :
+    {
+      var root : Node__46230540<SessionId__218261172, Session__468206110>;
+      var size : Nat__490723111
+    }
+};

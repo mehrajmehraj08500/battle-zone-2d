@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "DM Sans";
+    --font-mono: "Geist Mono";
+    --radius: 0.25rem;
+
+    --background: 0.08 0 0;
+    --foreground: 0.92 0 0;
+    --card: 0.12 0.01 260;
+    --card-foreground: 0.92 0 0;
+    --popover: 0.15 0.01 260;
+    --popover-foreground: 0.92 0 0;
+
+    --primary: 0.65 0.24 50;
+    --primary-foreground: 0.12 0 0;
+
+    --secondary: 0.18 0.01 260;
+    --secondary-foreground: 0.85 0 0;
+    --muted: 0.22 0.01 260;
+    --muted-foreground: 0.55 0 0;
+
+    --accent: 0.72 0.2 155;
+    --accent-foreground: 0.12 0 0;
+
+    --destructive: 0.55 0.28 25;
+    --destructive-foreground: 0.92 0 0;
+
+    --border: 0.25 0.01 260;
+    --input: 0.25 0.01 260;
+    --ring: 0.65 0.24 50;
+
+    --chart-1: 0.65 0.24 50;
+    --chart-2: 0.55 0.28 25;
+    --chart-3: 0.72 0.2 155;
+    --chart-4: 0.5 0.18 145;
+    --chart-5: 0.45 0.15 85;
+
+    --sidebar: 0.12 0.01 260;
+    --sidebar-foreground: 0.92 0 0;
+    --sidebar-primary: 0.65 0.24 50;
+    --sidebar-primary-foreground: 0.12 0 0;
+    --sidebar-accent: 0.22 0.01 260;
+    --sidebar-accent-foreground: 0.85 0 0;
+    --sidebar-border: 0.25 0.01 260;
+    --sidebar-ring: 0.65 0.24 50;
+  }
+
+  .dark {
+    --background: 0.08 0 0;
+    --foreground: 0.92 0 0;
+    --card: 0.12 0.01 260;
+    --card-foreground: 0.92 0 0;
+    --popover: 0.15 0.01 260;
+    --popover-foreground: 0.92 0 0;
+
+    --primary: 0.65 0.24 50;
+    --primary-foreground: 0.12 0 0;
+
+    --secondary: 0.18 0.01 260;
+    --secondary-foreground: 0.85 0 0;
+    --muted: 0.22 0.01 260;
+    --muted-foreground: 0.55 0 0;
+
+    --accent: 0.72 0.2 155;
+    --accent-foreground: 0.12 0 0;
+
+    --destructive: 0.55 0.28 25;
+    --destructive-foreground: 0.92 0 0;
+
+    --border: 0.25 0.01 260;
+    --input: 0.25 0.01 260;
+    --ring: 0.65 0.24 50;
+
+    --chart-1: 0.65 0.24 50;
+    --chart-2: 0.55 0.28 25;
+    --chart-3: 0.72 0.2 155;
+    --chart-4: 0.5 0.18 145;
+    --chart-5: 0.45 0.15 85;
+
+    --sidebar: 0.12 0.01 260;
+    --sidebar-foreground: 0.92 0 0;
+    --sidebar-primary: 0.65 0.24 50;
+    --sidebar-primary-foreground: 0.12 0 0;
+    --sidebar-accent: 0.22 0.01 260;
+    --sidebar-accent-foreground: 0.85 0 0;
+    --sidebar-border: 0.25 0.01 260;
+    --sidebar-ring: 0.65 0.24 50;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Military HUD utilities */
+  .hud-panel {
+    @apply bg-black/40 border border-white/20 backdrop-blur-sm;
+  }
+
+  .tactical-text {
+    @apply font-mono text-xs tracking-widest uppercase;
+  }
+
+  .tactical-accent {
+    @apply text-primary font-bold;
+  }
+
+  .status-bar {
+    @apply h-1.5 bg-muted rounded-none border border-white/30;
+  }
+
+  .pulse-tactical {
+    animation: pulse-scan 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes pulse-scan {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}

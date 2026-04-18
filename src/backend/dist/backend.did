@@ -1,0 +1,141 @@
+type WeaponType = 
+ variant {
+   Pistol;
+   Rifle;
+   Shotgun;
+   Sniper;
+ };
+type SessionId = nat;
+type SafeZonePublic = 
+ record {
+   centerX: float64;
+   centerY: float64;
+   damagePerTick: nat;
+   nextShrinkTime: int;
+   phase: nat;
+   radius: float64;
+ };
+type PlayerPublic = 
+ record {
+   alive: bool;
+   ammo: nat;
+   angle: float64;
+   armor: nat;
+   health: nat;
+   id: PlayerId;
+   isBot: bool;
+   kills: nat;
+   name: text;
+   weapon: WeaponType;
+   x: float64;
+   y: float64;
+ };
+type PlayerId = nat;
+type MatchResult = 
+ record {
+   kills: nat;
+   matchId: SessionId;
+   placement: nat;
+   playerName: text;
+   survivalTime: int;
+ };
+type LootType = 
+ variant {
+   Armor;
+   Health;
+   Weapon;
+ };
+type LootPublic = 
+ record {
+   amount: nat;
+   armorTier: ArmorTier;
+   claimed: bool;
+   id: LootId;
+   lootType: LootType;
+   weaponType: WeaponType;
+   x: float64;
+   y: float64;
+ };
+type LootId = nat;
+type LeaderboardEntryPublic = 
+ record {
+   gamesPlayed: nat;
+   kills: nat;
+   playerName: text;
+   wins: nat;
+ };
+type KillFeedEntry = 
+ record {
+   killerId: PlayerId;
+   killerName: text;
+   timestamp: int;
+   victimId: PlayerId;
+   victimName: text;
+   weapon: WeaponType;
+ };
+type GameState = 
+ record {
+   killFeed: vec KillFeedEntry;
+   loots: vec LootPublic;
+   matchTime: int;
+   phase: GamePhase;
+   players: vec PlayerPublic;
+   safeZone: SafeZonePublic;
+   sessionId: SessionId;
+   winner: opt text;
+ };
+type GamePhase = 
+ variant {
+   GameOver;
+   InGame;
+   Lobby;
+ };
+type ArmorTier = 
+ variant {
+   Heavy;
+   Light;
+   Medium;
+ };
+service : {
+  createSession: (playerName: text) -> (SessionId);
+  getGameState: (sessionId: SessionId) ->
+   (variant {
+      err: text;
+      ok: GameState;
+    }) query;
+  getLeaderboard: () -> (vec LeaderboardEntryPublic) query;
+  getMatchHistory: (sessionId: SessionId) -> (vec MatchResult) query;
+  joinSession: (sessionId: SessionId, playerName: text) ->
+   (variant {
+      err: text;
+      ok: PlayerId;
+    });
+  movePlayer: (sessionId: SessionId, playerId: PlayerId, x: float64, y:
+   float64, angle: float64) -> (variant {
+                                  err: text;
+                                  ok: bool;
+                                });
+  pickupLoot: (sessionId: SessionId, playerId: PlayerId, lootId: LootId) ->
+   (variant {
+      err: text;
+      ok: bool;
+    });
+  shootBullet: (sessionId: SessionId, playerId: PlayerId, targetX: float64,
+   targetY: float64) -> (variant {
+                           err: text;
+                           ok: bool;
+                         });
+  startGame: (sessionId: SessionId) -> (variant {
+                                          err: text;
+                                          ok: bool;
+                                        });
+  tickGame: (sessionId: SessionId) -> (variant {
+                                         err: text;
+                                         ok: GameState;
+                                       });
+  useHealthItem: (sessionId: SessionId, playerId: PlayerId) ->
+   (variant {
+      err: text;
+      ok: bool;
+    });
+}

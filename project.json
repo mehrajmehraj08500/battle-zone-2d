@@ -1,0 +1,21 @@
+{
+  "overview": "A 2D top-down browser-based battle royale game inspired by PUBG. Drop into an island map, loot weapons and armor, survive the shrinking safe zone, and outlast AI bots and other players to win.",
+  "features": [
+    "2D top-down gameplay with WASD movement and mouse aim",
+    "Shrinking safe zone with 3-4 phases and zone damage",
+    "Loot system: pistol, rifle, shotgun, sniper, armor tiers, health items",
+    "4-player polling-based multiplayer + AI bots",
+    "Mini-map, kill feed, HUD with health/armor/ammo",
+    "Leaderboard and match history"
+  ],
+  "category": "game",
+  "tags": [
+    "battle-royale",
+    "2d-game",
+    "top-down",
+    "multiplayer",
+    "browser-game",
+    "pubg-style"
+  ],
+  "last_updated": "2026-04-18T11:05:03.194Z"
+}
